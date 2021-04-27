@@ -1,106 +1,72 @@
 import React, { Component } from "react";
 import axios from "axios";
-import ProductListing from "./components/ProductListing/ProductListing";
-import MessageBox from "./components/MessageBox/MessageBox";
-import SelectBox from "./components/SelectBox/SelectBox";
+import ProgressBars from "./components/ProgressBars/ProgressBars";
+import ProgressBarSelector from "./components/ProgressBarSelector/ProgressBarSelector";
+import UpdateButtons from "./components/UpdateButtons/UpdateButtons";
 
 //const store = createStore(() => [],{},applyMiddleware());
 class App extends Component {
 	constructor() {
 		super();
-
 		this.state = {
-			products: [],
 			serviceError: false,
-			selectedSize: "",
-			initial_state: this.products
+			bars: [],
+			buttons: [],
+			widthLimit: 0,
+			selectedProgressBar: 0,
+			appLoaded: false
 		};
-		this.handleChange = this.handleChange.bind(this);
-		this.getSizes = this.getSizes.bind(this);
+		this.handleProgressBarSelection = this.handleProgressBarSelection.bind(this);
+		this.handleProgressBarUpdate = this.handleProgressBarUpdate.bind(this);
 	}
-
 	componentDidMount() {
 		axios
 			.get(
-				`https://gist.githubusercontent.com/nitinsuri/369461bf222c6a0267d156d822359a4c/raw/ec8f5b2b2af66dc2beba5eb827ca1c9021c371f3/products.json`
+				`https://pb-api.herokuapp.com/bars`
 			)
 			.then(
 				res => {
-					const products = res.data;
-					this.setState({ products });
-					this.getSizes();
-					this.setState({ INITIAL_STATE: products });
+					const appData = res.data;
+					this.setState({
+						bars: appData.bars,
+						buttons: appData.buttons,
+						widthLimit: appData.limit,
+						appLoaded: true
+					});
 				},
 				error => {
 					this.setState({ serviceError: true });
 				}
 			);
 	}
+
+	handleProgressBarSelection(e) {
+		const { value } = e.target;
+		this.setState({ selectedProgressBar: value });
+	}
+
+	handleProgressBarUpdate(e) {
+		console.log("handleProgressBarUpdate");
+	}
+
 	componentDidUpdate() {
-		console.log(this.state.products);
-	}
-
-	getSizes() {
-		const sizeChartMap = [
-			"XXS",
-			"XXS",
-			"XS",
-			"S",
-			"M",
-			"L",
-			"XL",
-			"XXL",
-			"XXXL",
-			"XXXXL",
-			"XXXXXL"
-		];
-		let uniqueSizesArray = [];
-		this.state.products.forEach(
-			product =>
-				(uniqueSizesArray = [...uniqueSizesArray, ...product.size])
-		);
-		uniqueSizesArray = [...new Set([...uniqueSizesArray])];
-		const serialisedSizesArray = sizeChartMap.filter(element =>
-			uniqueSizesArray.includes(element)
-		);
-		return serialisedSizesArray;
-	}
-
-	handleChange(e) {
-		const { value } = e.target,
-			products = this.state.INITIAL_STATE;
-		if (value === "-1") {
-			this.setState({ products: this.state.INITIAL_STATE });
-		} else {
-			const filteredProducts = products.filter(element =>
-				element.size.includes(value)
-			);
-			this.setState({ products: filteredProducts });
-		}
+		console.log(this.state.selectedProgressBar);
 	}
 
 	render() {
 		return (
-			<main id="app-wrapper">
-				<div id="section-header">
-					<h2>Women's tops</h2>
-					<SelectBox
-						onChange={this.handleChange}
-						options={this.getSizes()}
-						usedFor="sizeFilter"
-					/>
+			<main id="app-wrapper" className={this.state.appLoaded ? "" : "loading"}>
+				<ProgressBars progressBars={this.state.bars} />
+				<div id="controls">
+					<ProgressBarSelector
+						onChange={this.handleProgressBarSelection}
+						usedFor="progressbar-selector"
+						options={this.state.bars} />
+					<UpdateButtons buttons={this.state.buttons} onClick={this.handleProgressBarUpdate} />
 				</div>
-				{this.state.serviceError ? (
-					<MessageBox
-						status={"error"}
-						message={"Error messaage!"}
-					/>
-				) : (
-					<ProductListing products={this.state.products} />
-				)}
+				<div id="loader"></div>
 			</main>
 		);
 	}
 }
-
 export default App;
