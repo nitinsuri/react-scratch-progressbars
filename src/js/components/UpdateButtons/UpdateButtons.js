@@ -6,7 +6,7 @@ class UpdateButtons extends Component {
 			<span id="progressbar-buttons">
 				{
 					this.props.buttons.map(
-						(button, i) => <button key={i} value={button} onClick={this.handleProgressBarUpdate}>{button}</button>
+						(button, i) => <button key={i} value={button} onClick={this.props.buttonClick}>{button}</button>
 					)
 				}
 			</span>

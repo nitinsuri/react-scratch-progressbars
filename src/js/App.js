@@ -17,7 +17,7 @@ class App extends Component {
 			appLoaded: false
 		};
 		this.handleProgressBarSelection = this.handleProgressBarSelection.bind(this);
-		this.handleProgressBarUpdate = this.handleProgressBarUpdate.bind(this);
+		this.updateProgressBar = this.updateProgressBar.bind(this);
 	}
 	componentDidMount() {
 		axios
@@ -45,12 +45,15 @@ class App extends Component {
 		this.setState({ selectedProgressBar: value });
 	}
 
-	handleProgressBarUpdate(e) {
-		console.log("handleProgressBarUpdate");
+	updateProgressBar(e) {
+		const { value } = e.target;
+		console.log(value);
+		console.log(this.state.selectedProgressBar)
+		console.log(this.state.bars);
+		
 	}
-
-	componentDidUpdate() {
-		console.log(this.state.selectedProgressBar);
+	componentDidUpdate(){
+		console.log("componentDidUpdate: ",this.state.bars);
 	}
 
 	render() {
@@ -62,7 +65,7 @@ class App extends Component {
 						onChange={this.handleProgressBarSelection}
 						usedFor="progressbar-selector"
 						options={this.state.bars} />
-					<UpdateButtons buttons={this.state.buttons} onClick={this.handleProgressBarUpdate} />
+					<UpdateButtons buttons={this.state.buttons} buttonClick={this.updateProgressBar.bind(this)} />
 				</div>
 				<div id="loader"></div>
 			</main>
