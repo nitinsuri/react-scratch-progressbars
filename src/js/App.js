@@ -33,9 +33,6 @@ class App extends Component {
 						widthLimit: appData.limit,
 						appLoaded: true
 					});
-				},
-				error => {
-					this.setState({ serviceError: true });
 				}
 			);
 	}
@@ -48,7 +45,7 @@ class App extends Component {
 	updateProgressBar(e) {
 		const { value } = e.target;
 
-		// making shallow copy
+		// making shallow copy from the initial state
 		let bars = [...this.state.bars];
 		//reading the value of the selected bar in the array
 		let bar = bars[this.state.selectedProgressBar];
@@ -63,7 +60,7 @@ class App extends Component {
 		this.setState({bars});
 	}
 	componentDidUpdate(){
-		//console.log("componentDidUpdate: ",this.state.bars);
+		console.log("componentDidUpdate: ",this.state.bars);
 	}
 
 	render() {
