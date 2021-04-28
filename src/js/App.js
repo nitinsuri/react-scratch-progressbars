@@ -47,13 +47,23 @@ class App extends Component {
 
 	updateProgressBar(e) {
 		const { value } = e.target;
-		console.log(value);
-		console.log(this.state.selectedProgressBar)
-		console.log(this.state.bars);
-		
+
+		// making shallow copy
+		let bars = [...this.state.bars];
+		//reading the value of the selected bar in the array
+		let bar = bars[this.state.selectedProgressBar];
+
+		bar = bar + parseInt(value);
+		if(bar<0) {
+			bar = 0;
+		} else if (bar >this.state.widthLimit) {
+			bar = this.state.widthLimit
+		}
+		bars[this.state.selectedProgressBar] = bar;
+		this.setState({bars});
 	}
 	componentDidUpdate(){
-		console.log("componentDidUpdate: ",this.state.bars);
+		//console.log("componentDidUpdate: ",this.state.bars);
 	}
 
 	render() {
