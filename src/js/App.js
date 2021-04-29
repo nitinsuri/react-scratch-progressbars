@@ -14,10 +14,11 @@ class App extends Component {
 			buttons: [],
 			widthLimit: 0,
 			selectedProgressBar: 0,
-			appLoaded: false
+			appLoaded: false,
+			overLimitBars: []
 		};
 		this.handleProgressBarSelection = this.handleProgressBarSelection.bind(this);
-		this.updateProgressBar = this.updateProgressBar.bind(this);
+		this.handleUpdateProgressBar = this.handleUpdateProgressBar.bind(this);
 	}
 	componentDidMount() {
 		axios
@@ -38,41 +39,49 @@ class App extends Component {
 	}
 
 	handleProgressBarSelection(e) {
-		const { value } = e.target;
-		this.setState({ selectedProgressBar: value });
+		this.setState({ selectedProgressBar: e.target.value });
 	}
 
-	updateProgressBar(e) {
+	handleUpdateProgressBar(e) {
 		const { value } = e.target;
+		let selectedProgressBar = parseInt(this.state.selectedProgressBar),
+			overLimitBars = [...this.state.overLimitBars];
 
-		// making shallow copy from the initial state
 		let bars = [...this.state.bars];
-		//reading the value of the selected bar in the array
 		let bar = bars[this.state.selectedProgressBar];
 
 		bar = bar + parseInt(value);
-		if(bar<0) {
+		if(bar < 0) {
 			bar = 0;
-		} else if (bar >this.state.widthLimit) {
-			bar = this.state.widthLimit
 		}
-		bars[this.state.selectedProgressBar] = bar;
+
+		if (bar > this.state.widthLimit) {
+			overLimitBars.push(selectedProgressBar);
+			overLimitBars = [...new Set(overLimitBars)];
+			this.setState({overLimitBars});
+		} else {
+			overLimitBars = overLimitBars.filter(bar => bar !== selectedProgressBar);
+			this.setState({overLimitBars});
+		}
+
+		bars[selectedProgressBar] = bar;
 		this.setState({bars});
 	}
 	componentDidUpdate(){
-		console.log("componentDidUpdate: ",this.state.bars);
+		console.log("componentDidUpdate: ",this.state);
 	}
 
 	render() {
 		return (
 			<main id="app-wrapper" className={this.state.appLoaded ? "" : "loading"}>
-				<ProgressBars progressBars={this.state.bars} />
+				<div className="width-limit-indicator">Bar width limit: <span>{this.state.widthLimit}</span></div>
+				<ProgressBars progressBars={this.state.bars} overLimitBars={this.state.overLimitBars} />
 				<div id="controls">
 					<ProgressBarSelector
 						onChange={this.handleProgressBarSelection}
 						usedFor="progressbar-selector"
 						options={this.state.bars} />
-					<UpdateButtons buttons={this.state.buttons} buttonClick={this.updateProgressBar.bind(this)} />
+					<UpdateButtons buttons={this.state.buttons} buttonClick={this.handleUpdateProgressBar.bind(this)} />
 				</div>
 				<div id="loader"></div>
 			</main>

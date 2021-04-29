@@ -3,13 +3,16 @@ import React from 'react';
 const ProgressBars = props => <ul id="progressbars">
 	{
 		props.progressBars.map(
-			(progressBar, i) => <li key={i}>
-				<span
-					key={progressBar}
-					style={{ width: progressBar + '%' }}>
-					{progressBar + "%"}
-				</span>
-			</li>)
+			(progressBar, i) => {
+				return <li key={i} className={props.overLimitBars.includes(i) ? "over-limit": ""}>
+					<span
+						key={progressBar}
+						style={{ width: progressBar + '%' }} >
+						<span className="display">{progressBar + "%"}</span>
+					</span>
+				</li>
+			}
+		)
 	}
 </ul>;
 
