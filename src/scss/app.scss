@@ -18,6 +18,9 @@ body {
   justify-content: center;
 }
 
+#container {
+  width: 100%;
+}
 
 #app-wrapper {
   background-color: #f7f7f7;
@@ -122,12 +125,12 @@ body {
 }
 
 
-@media screen and (max-width: 719px) {
+@media screen and (max-width: 767px) {
   body {
     padding: 10px;
   }
-  #wrapper {
-    padding: 40px 10px;
+  #app-wrapper {
+    padding: 20px;
     width: 100%;
   }
   #controls {
