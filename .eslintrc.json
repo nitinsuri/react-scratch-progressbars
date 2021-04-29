@@ -1,0 +1,22 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": ["error", 4],
+        "linebreak-style": ["warn", "unix"],
+        "quotes": ["warn", "double"],
+        "no-empty": "warn",
+        "no-cond-assign": ["warn", "always"],
+        "for-direction": "off",
+        "semi":"error",
+        "no-unused-vars": "warn",
+        "no-console":"warn"
+    }
+}
