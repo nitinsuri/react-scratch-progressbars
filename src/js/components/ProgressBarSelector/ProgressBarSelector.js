@@ -1,9 +1,9 @@
 import React from 'react';
 
 function ProgressBarSelector(props) {
-	return <select id={props.usedFor} onChange={props.onChange}>
+	return <select id="progressbar-selector" onChange={props.onChange} data-testid="progressbar-selector">
 		{
-			props.options.map((option, i) => <option key={i} value={i}>{"Progress bar " + (i + 1)}</option>)
+			props.options.map((i) => <option key={i} value={i}>{"Progress bar " + (i + 1)}</option>)
 		}
 	</select>;
 };

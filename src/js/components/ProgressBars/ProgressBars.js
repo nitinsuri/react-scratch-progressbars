@@ -1,7 +1,7 @@
 import React from 'react';
 
 function ProgressBars(props) {
-	return <ul id="progressbars">
+	return <ul id="progressbars" data-testid="progressbars">
 		{
 			props.progressBars.map(
 				(progressBar, i) => {
@@ -18,4 +18,4 @@ function ProgressBars(props) {
 	</ul>;
 };
 
-export default ProgressBars
+export default ProgressBars;

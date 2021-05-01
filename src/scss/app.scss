@@ -34,14 +34,14 @@ h1 {
 }
 
 #app-wrapper {
-	background-color: #f7f7f7;
+	background-color: $smoke-white;
 	margin: 0 auto;
 	max-width: 1024px;
 	padding: 40px;
 	position: relative;
 	width: 90vw;
 	&.loading #loader {
-		background: #fff url(https://upload.wikimedia.org/wikipedia/commons/5/54/Ajux_loader.gif) no-repeat center;
+		background: #fff url(/images/ajax_loader.gif) no-repeat center;
 		background-size: contain;
 		bottom: 0;
 		left: 0;
@@ -61,7 +61,7 @@ h1 {
 }
 
 #progressbars {
-	border-left: 1px solid #ccc;
+	border-left: 1px solid $lighter-grey;
 	list-style-type: none;
 	overflow: hidden;
 	padding: 20px 0;
@@ -73,7 +73,6 @@ h1 {
 		margin-bottom: 20px;
 		position: relative;
 		> span {
-			background-color: #666;
 			box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.15);
 			color: #fff;
 			display: block;
@@ -87,12 +86,6 @@ h1 {
 				top: 7px;
 			}
 		}
-
-		// @for $i from 1 through length($colors) {
-		// 	&:nth-child(#{$i}) > span {
-		// 		background: nth($colors, random(length($colors)));
-		// 	}
-		// };
 
 		&:nth-child(1) > span {
 			background-color: #ffc400;
@@ -145,7 +138,7 @@ h1 {
 		margin-right: 20px;
 	}
 	button {
-		background-color: #3373b3;
+		background-color: $buttons-primary;
 		border-width: 0;
 		color: #fff;
 		margin-right: 10px;

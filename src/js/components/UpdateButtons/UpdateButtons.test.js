@@ -1,6 +1,6 @@
-import {render, getByTestId} from "@testing-library/react";
 import React from "react";
 import UpdateButtons from "./UpdateButtons";
+import {render, getByTestId} from "@testing-library/react";
 
 describe("UpdateButtons", ()=>{
     it('should create a snapshot of buttons', () => {
