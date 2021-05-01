@@ -1,152 +1,184 @@
-@import 'variables';
-@import 'mixins';
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+@import "normalize";
+@import "variables";
+@import "mixins";
 
-html *,
-html *:before,
-html *:after {
-  box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+html {
+	@include font-face($primary-font, 400, normal);
+	font-size: 10px;
+	*,
+	*:before,
+	*:after {
+		box-sizing: border-box;
+	}
 }
 
 body {
-  display: flex;
-  height: 100vh;
-  position: relative;
-  align-items: center;
-  justify-content: center;
+	@include flex-container;
+	height: 100vh;
+	position: relative;
+	align-items: center;
 }
 
 #container {
-  width: 100%;
+	width: 100%;
+}
+
+h1 {
+	@include font-size(36);
+	font-weight: 700;
+	margin: 0 auto 10px;
+	max-width: 1024px;
+	text-align: center;
+	width: 90vw;
 }
 
 #app-wrapper {
-  background-color: #f7f7f7;
-  margin: 0 auto;
-  padding: 40px;
-  position: relative;
-  width: 75vw;
-  &.loading #loader {
-    background: #fff url(https://upload.wikimedia.org/wikipedia/commons/5/54/Ajux_loader.gif) no-repeat center;
-    background-size: contain;
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
+	background-color: #f7f7f7;
+	margin: 0 auto;
+	max-width: 1024px;
+	padding: 40px;
+	position: relative;
+	width: 90vw;
+	&.loading #loader {
+		background: #fff url(https://upload.wikimedia.org/wikipedia/commons/5/54/Ajux_loader.gif) no-repeat center;
+		background-size: contain;
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
 }
 
 .width-limit-indicator {
-  font-size: .75rem;
-  text-align: right;
-  span {
-    font-weight: 700;
-  }
+	@include font-size(12);
+	text-align: right;
+	span {
+		@include font-size(18);
+		font-weight: 700;
+	}
 }
 
 #progressbars {
-  border-left: 1px solid #ccc;
-  list-style-type: none;
-  overflow: hidden;
-  padding: 10px 0 0 0;
-  li {
-    background-color: rgba(0,0,0,0.05);
-    display: block;
-    margin-bottom: 10px;
-    position: relative;
-    > span {
-      background-color: #666;
-      box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.15);
-      font-size: 1.5em;
-      color: #fff;
-      display: block;
-      font-weight: 700;
-      min-height: 50px;
-      padding: 10px 0;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-      transition: all .25s;
-      span {
-        position: absolute;
-        left: 50%;
-      }
-    }
-    &:nth-child(5) > span {
-      background-color:  #ffc400 ;
-    }
-    &:nth-child(4) > span {
-      background-color:  #FF5733;
-    }
-    &:nth-child(3) > span {
-      background-color:  #C70039 ;
-    }
-    &:nth-child(2) > span {
-      background-color:  #900C3F ;
-    }
-    &:nth-child(1) > span {
-      background-color:  #581845 ;
-    }
-    &.over-limit > span {
-      background-color: red;
-      text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
-    }
-  }
+	border-left: 1px solid #ccc;
+	list-style-type: none;
+	overflow: hidden;
+	padding: 20px 0;
+	li {
+		background-color: rgba(0, 0, 0, 0.05);
+		display: block;
+		@include font-size(30);
+		font-weight: 700;
+		margin-bottom: 20px;
+		position: relative;
+		> span {
+			background-color: #666;
+			box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.15);
+			color: #fff;
+			display: block;
+			min-height: 50px;
+			padding: 10px 0;
+			text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+			transition: all 0.25s;
+			span {
+				left: 50%;
+				position: absolute;
+				top: 7px;
+			}
+		}
+
+		// @for $i from 1 through length($colors) {
+		// 	&:nth-child(#{$i}) > span {
+		// 		background: nth($colors, random(length($colors)));
+		// 	}
+		// };
+
+		&:nth-child(1) > span {
+			background-color: #ffc400;
+		}
+		&:nth-child(2) > span {
+			background-color: #ff5733;
+		}
+		&:nth-child(3) > span {
+			background-color: #c70039;
+		}
+		&:nth-child(4) > span {
+			background-color: #900c3f;
+		}
+		&:nth-child(5) > span {
+			background-color: #581845;
+		}
+
+		&.over-limit > span {
+			background-color: red;
+			text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
 }
 
 #controls {
-  display: flex;
-  select,
-  button {
-    border-radius: 4px;
-    font-size: 1em;
-    margin-right: 10px;
-    padding: 6px 16px;
-    transition: all .25s;
-    &:hover {
-      box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.5);
-      cursor: pointer;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-  button {
-    background-color: #3373b3;
-    border-width: 0;
-    color: #fff;
-    min-width: 60px;
-    padding: 10px 24px;
-    &:hover {
-      background-color: #147;
-    }
-  }
+	@include flex-container;
+	@include font-size(24);
+	align-content: center;
+	align-items: center;
+	select,
+	button {
+		border-radius: 4px;
+		@include font-face($primary-font);
+		@include font-size(20);
+		padding: 6px 16px;
+		transition: all 0.25s;
+		&:hover {
+			box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.5);
+			cursor: pointer;
+		}
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+	select {
+		margin-right: 20px;
+	}
+	button {
+		background-color: #3373b3;
+		border-width: 0;
+		color: #fff;
+		margin-right: 10px;
+		min-width: 60px;
+		padding: 10px 24px;
+		&:hover {
+			background-color: #147;
+		}
+	}
 }
 
-
 @media screen and (max-width: 767px) {
-  body {
-    padding: 10px;
-  }
-  #app-wrapper {
-    padding: 20px;
-    width: 100%;
-  }
-  #controls {
-    display: block;
-    select {
-      display: block;
-      width:100%;
-    }
-  }
-  #progressbar-buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    width: 100%;
-    button {
-      width: 25%;
-    }
-  }
+	body {
+		padding: 10px;
+	}
+	#app-wrapper {
+		padding: 20px;
+		width: 100%;
+	}
+	#controls {
+		display: block;
+		select {
+			display: block;
+			width: 100%;
+		}
+	}
+	#progressbar-buttons {
+		display: flex;
+		justify-content: center;
+		margin-top: 10px;
+		width: 100%;
+		button {
+			width: 25%;
+		}
+	}
 }

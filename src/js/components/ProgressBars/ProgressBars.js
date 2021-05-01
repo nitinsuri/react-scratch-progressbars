@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProgressBars = props => {
+function ProgressBars(props) {
 	return <ul id="progressbars">
 		{
 			props.progressBars.map(
@@ -8,14 +8,14 @@ const ProgressBars = props => {
 					return <li key={i} className={props.overLimitBars.includes(i) ? "over-limit" : ""}>
 						<span
 							key={progressBar}
-							style={{ width: progressBar + '%' }} >
+							style={{ width: progressBar + '%' }}>
 							<span className="display">{progressBar + "%"}</span>
 						</span>
 					</li>
 				}
 			)
 		}
-	</ul>
+	</ul>;
 };
 
 export default ProgressBars

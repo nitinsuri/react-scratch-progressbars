@@ -1,17 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 
-class UpdateButtons extends Component {
-	render() {
-		return (
-			<span id="progressbar-buttons">
-				{
-					this.props.buttons.map(
-						(button, i) => <button key={i} value={button} onClick={this.props.buttonClick}>{button}</button>
-					)
-				}
-			</span>
-		);
-	}
+function UpdateButtons(props) {
+	return <span id="progressbar-buttons">
+		{
+			props.buttons.map(
+				(button, i) => <button key={i} value={button} onClick={props.buttonClick}>{button}</button>
+			)
+		}
+	</span>;
 }
 
 export default UpdateButtons;

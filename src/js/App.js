@@ -73,18 +73,21 @@ class App extends Component {
 
 	render() {
 		return (
-			<main id="app-wrapper" className={this.state.appLoaded ? "" : "loading"}>
-				<div className="width-limit-indicator">Bar width limit: <span>{this.state.widthLimit}</span></div>
-				<ProgressBars progressBars={this.state.bars} overLimitBars={this.state.overLimitBars} />
-				<div id="controls">
-					<ProgressBarSelector
-						onChange={this.handleProgressBarSelection}
-						usedFor="progressbar-selector"
-						options={this.state.bars} />
-					<UpdateButtons buttons={this.state.buttons} buttonClick={this.handleUpdateProgressBar.bind(this)} />
-				</div>
-				<div id="loader"></div>
-			</main>
+			<>
+				<h1>Progress bars demo</h1>
+				<main id="app-wrapper" className={this.state.appLoaded ? "" : "loading"}>
+					<div className="width-limit-indicator">Width limit: <span>{this.state.widthLimit}</span></div>
+					<ProgressBars progressBars={this.state.bars} overLimitBars={this.state.overLimitBars} />
+					<div id="controls">
+						<ProgressBarSelector
+							onChange={this.handleProgressBarSelection}
+							usedFor="progressbar-selector"
+							options={this.state.bars} />
+						<UpdateButtons buttons={this.state.buttons} buttonClick={this.handleUpdateProgressBar.bind(this)} />
+					</div>
+					<div id="loader"></div>
+				</main>
+			</>
 		);
 	}
 }
