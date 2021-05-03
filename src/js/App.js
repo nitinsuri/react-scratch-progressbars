@@ -11,6 +11,7 @@ class App extends Component {
 		this.state = {
 			serviceError: false,
 			bars: [],
+			progressBarSelectorData: [],
 			buttons: [],
 			widthLimit: 0,
 			selectedProgressBar: 0,
@@ -30,6 +31,7 @@ class App extends Component {
 					const appData = res.data;
 					this.setState({
 						bars: appData.bars,
+						progressBarSelectorData: appData.bars,
 						buttons: appData.buttons,
 						widthLimit: appData.limit,
 						appLoaded: true
@@ -67,9 +69,6 @@ class App extends Component {
 		bars[selectedProgressBar] = bar;
 		this.setState({bars});
 	}
-	componentDidUpdate(){
-		console.log("componentDidUpdate: ",this.state);
-	}
 
 	render() {
 		return (
@@ -82,7 +81,7 @@ class App extends Component {
 						<ProgressBarSelector
 							onChange={this.handleProgressBarSelection}
 							usedFor="progressbar-selector"
-							options={this.state.bars} />
+							options={this.state.progressBarSelectorData} />
 						<UpdateButtons buttons={this.state.buttons} buttonClick={this.handleUpdateProgressBar.bind(this)} />
 					</div>
 					<div id="loader"></div>
