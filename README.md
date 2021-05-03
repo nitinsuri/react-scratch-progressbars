@@ -6,6 +6,6 @@
 
 Once installed, you have three scripts available which are:
 ## Scripts available:
-1. npm run start: runs the dev app
-2. npm run build: spins the production code in a `dist` folder
-3. npm run test: runs the test cases in the cmd/powershell/git-bash
+1. `npm run start`: runs the dev app
+2. `npm run build`: spins the production code in a `dist` folder
+3. `npm run test`: runs the test cases in the cmd/powershell/git-bash
