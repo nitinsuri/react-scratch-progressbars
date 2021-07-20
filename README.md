@@ -1,7 +1,7 @@
 # TechM Progressbars Demo App
 ## Setting up the code
-1. Clone the code `git clone https://github.com/nitinsuri/react-scratch-techm-progressbars.git`
-2. `cd react-scratch-techm-progressbars`
+1. Clone the code `git clone https://github.com/nitinsuri/react-scratch-progressbars.git`
+2. `cd react-scratch-progressbars`
 3. Run `npm install`
 
 Once installed, you have three scripts available which are:
